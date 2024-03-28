@@ -26,11 +26,16 @@
 
 #define fatal_msg(msg) fatal_fmt("%s", msg)
 
+inline uint64_t round_down(uint64_t v, uint64_t align) { return (v - v % align); }
+inline uint64_t round_up(uint64_t v, uint64_t align) { return ((v + align - 1) / align) * align; }
+
 /**
  * mmu.c
  */
 typedef struct {
     uint64_t entry;
+    uint64_t base;
+    uint64_t alloc;
 } mmu_t;
 
 void mmu_load_elf(mmu_t *mmu, int fd);
